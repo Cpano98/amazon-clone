@@ -7,7 +7,15 @@ import {
   DevicePhoneMobileIcon,
 } from "@heroicons/react/24/outline";
 
+import { useSession, signIn, signOut } from "next-auth/client";
+import { useRouter } from "next/router";
+
+import next from "next";
+
 function Header() {
+  const [session] = useSession();
+  const router = useRouter();
+
   return (
     <header>
       {/* Part 1 */}
@@ -15,6 +23,7 @@ function Header() {
         {/* Image Container */}
         <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
           <Image
+            onClick={() => router.push("/")}
             src="https://links.papareact.com/f90"
             width={150}
             height={40}
@@ -32,15 +41,15 @@ function Header() {
         </div>
         {/* Icons */}
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-          <div className="link">
-            <p>Hola, Carlos Pano</p>
+          <div onClick={!session ? signIn : signOut} className="link">
+            <p>{session ? `Hello, ${session.user.name}` : "Sign In"}</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
           <div className="link">
             <p>Returns </p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className="relative link flex items-center">
+          <div onClick={() => router.push("/checkout")} className="relative link flex items-center">
             <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">
               0
             </span>
