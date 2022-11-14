@@ -17,7 +17,7 @@ function Checkout() {
   return (
     <div className="bg-gray-100">
       <Head>
-        <title>Amazon 2.0 | Checkout</title>
+        <title>Amazon Clone | Checkout</title>
       </Head>
       {/* Header */}
       <Header />
